@@ -3,9 +3,9 @@
 *{box-sizing:border-box}body{margin:0;background:#f3f5f9;color:#15233e;font-family:system-ui,sans-serif;font-size:16px;line-height:1.7}.wrap{max-width:1100px;margin:auto;padding:32px 24px}header{display:flex;align-items:center;justify-content:space-between;margin-bottom:38px}.brand{font-weight:800;font-size:22px}.brand b{display:inline-block;background:#2458d3;color:white;padding:2px 12px;border-radius:9px;margin-right:12px}.tag{font-size:14px;color:#526582}h1{font-size:clamp(28px,4vw,40px);margin:6px 0 16px;letter-spacing:-.04em}h2{font-size:20px;margin:0}.note{background:#e7edfc;padding:16px 20px;border-left:4px solid #2458d3;border-radius:8px;margin-bottom:26px}.stats{display:flex;gap:32px;margin:28px 0}.stats strong{font-size:32px;margin-right:8px}.stats span{font-size:14px;color:#526582}.grid{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:26px;align-items:start}.panel{background:white;border:1px solid #dce2ec;border-radius:14px;overflow:hidden}.heading{padding:22px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #e5eaf1}.form{padding:24px}label{display:block;margin:16px 0 6px;font-size:14px;font-weight:650}input,select{font:inherit;width:100%;padding:11px;border:1px solid #b7c4da;border-radius:7px;background:white}input:focus,select:focus,button:focus-visible{outline:3px solid #8ba9ef;outline-offset:2px}button{font:inherit;cursor:pointer}.primary{border:0;border-radius:8px;background:#2458d3;color:white;padding:12px;width:100%;margin-top:22px;font-weight:700}.task{display:flex;gap:16px;align-items:center;padding:22px;border-bottom:1px solid #e5eaf1}.task:last-child{border:0}.task input{width:24px;height:24px;flex-shrink:0;accent-color:#2458d3}.text{min-width:0;flex:1}.course{font-size:14px;color:#2458d3}.title{font-weight:650;overflow-wrap:anywhere;margin:4px 0}.due{font-size:14px;color:#526582}.late{color:#b42318}.done .title{text-decoration:line-through;color:#66758f}.empty{text-align:center;padding:52px 20px;color:#526582}.empty strong{display:block;color:#15233e;margin-bottom:8px}footer{font-size:14px;color:#526582;margin-top:24px}#status{min-height:24px;font-size:14px;color:#2458d3}
 .secondary{border:1px solid #b7c4da;background:white;color:#2458d3;border-radius:7px;padding:9px 12px;margin-top:10px}.hint{font-size:14px;color:#526582;margin:8px 0}.course-registration{border-bottom:1px solid #e5eaf1;padding-bottom:20px;margin-bottom:20px}button:disabled{opacity:.5;cursor:not-allowed}
 @media(max-width:740px){.grid{grid-template-columns:1fr}.form{grid-row:1}.wrap{padding:24px 16px}.stats{gap:18px}.stats strong{font-size:27px}.tag{max-width:110px;text-align:right}}
-</style></head><body><main class="wrap"><header><div class="brand"><b aria-hidden="true">✓</b>課題ノート</div><span class="tag">操作体験版</span></header><h1>課題を、ひとつずつ。</h1><div class="note"><strong>まずは使い心地を試してみよう。</strong><br>この体験版の授業・課題は保存されません。ページを再読み込みすると消えます。ログイン・スマホとPCの同期は準備中です。</div><div class="stats"><div><strong id="pending">0</strong><span>未提出</span></div><div><strong id="done">0</strong><span>提出済み</span></div><div><strong id="late">0</strong><span>締切超過</span></div></div><div class="grid"><section class="panel" aria-label="課題一覧"><div class="heading"><h2>課題一覧</h2><span class="tag">締切が近い順</span></div><div id="list"></div></section><section class="panel form"><div class="course-registration"><h2>授業を登録</h2><p class="hint">必要な授業だけでOK。あとから追加できます。</p><form id="course-form"><label for="new-course">新しい授業名</label><input id="new-course" maxlength="100" required placeholder="例：構造力学"><button class="secondary" type="submit">＋ 授業を登録</button></form></div><h2>課題を追加</h2><form id="form"><label for="course">授業を選択</label><select id="course" required aria-describedby="course-hint"></select><p class="hint" id="course-hint">まず上の欄で授業を登録してください。</p><button class="secondary" id="add-course" type="button">＋ 未登録の授業を追加</button><label for="title">課題名</label><input id="title" maxlength="200" required placeholder="例：第1回 演習レポート"><label for="due">締切日</label><input id="due" type="date" min="2000-01-01" max="2100-12-31" required><button id="add-task" class="primary">＋ 課題を追加</button></form><p id="status" role="status"></p></section></div><footer>提出したら、課題の左にチェック。</footer></main><script>
+</style></head><body><main class="wrap"><header><div class="brand"><b aria-hidden="true">✓</b>課題ノート</div><span class="tag">操作体験版</span></header><h1>課題を、ひとつずつ。</h1><div class="note"><strong>まずは使い心地を試してみよう。</strong><br>この体験版の授業・課題・毎週の設定は保存されません。ページを再読み込みすると消えます。ログイン・スマホとPCの同期は準備中です。</div><div class="stats"><div><strong id="pending">0</strong><span>未提出</span></div><div><strong id="done">0</strong><span>提出済み</span></div><div><strong id="late">0</strong><span>締切超過</span></div></div><div class="grid"><section class="panel" aria-label="課題一覧"><div class="heading"><h2>課題一覧</h2><span class="tag">締切が近い順</span></div><div id="list"></div><div class="form"><h2>毎週の設定</h2><div id="rules"></div></div></section><section class="panel form"><div class="course-registration"><h2>授業を登録</h2><p class="hint">必要な授業だけでOK。あとから追加できます。</p><form id="course-form"><label for="new-course">新しい授業名</label><input id="new-course" maxlength="100" required placeholder="例：構造力学"><button class="secondary" type="submit">＋ 授業を登録</button></form></div><h2>課題を追加</h2><form id="form"><label for="course">授業を選択</label><select id="course" required aria-describedby="course-hint"></select><p class="hint" id="course-hint">まず上の欄で授業を登録してください。</p><button class="secondary" id="add-course" type="button">＋ 未登録の授業を追加</button><label for="title">課題名</label><input id="title" maxlength="200" required placeholder="例：第1回 演習レポート"><label for="kind">課題の種類</label><select id="kind"><option value="once">不定期（今回だけ）</option><option value="weekly">毎週</option></select><div id="once-fields"><label for="due">締切日時</label><input id="due" type="datetime-local" min="2000-01-01T00:00" max="2100-12-31T23:59" required></div><div id="weekly-fields" hidden><label for="weekday">締切の曜日</label><select id="weekday"><option value="0">日曜日</option><option value="1">月曜日</option><option value="2">火曜日</option><option value="3">水曜日</option><option value="4">木曜日</option><option value="5">金曜日</option><option value="6">土曜日</option></select><label for="time">締切の時刻</label><input id="time" type="time" value="09:00"><p class="hint">次に来る締切から作成します。提出・スキップ、または締切を過ぎると翌週分を追加します。</p></div><p class="hint">日時は端末のタイムゾーンで表示します。</p><button id="add-task" class="primary">＋ 課題を追加</button></form><p id="status" role="status"></p></section></div><footer>提出したら、課題の左にチェック。</footer></main><script>
 'use strict';
-const tasks=[];const courses=[];const $=id=>document.getElementById(id);
+const tasks=[];const rules=[];const courses=[];const $=id=>document.getElementById(id);
 function renderCourses(selected=''){
 $('course').replaceChildren();
 const placeholder=document.createElement('option');placeholder.value='';placeholder.textContent=courses.length?'授業を選んでください':'授業が未登録です';$('course').append(placeholder);
@@ -22,22 +22,87 @@ if(!existing)courses.push(name);
 renderCourses(existing||name);$('new-course').value='';$('title').focus();
 $('status').textContent=existing?'登録済みの授業を選択しました。':'授業を登録しました。この授業の課題を追加できます。';
 };
-function render(){
-const today=new Intl.DateTimeFormat('sv-SE').format(new Date());
-$('pending').textContent=tasks.filter(t=>!t.done).length;
-$('done').textContent=tasks.filter(t=>t.done).length;
-$('late').textContent=tasks.filter(t=>!t.done&&t.due<today).length;
-$('list').replaceChildren();
-if(!tasks.length){const div=document.createElement('div');div.className='empty';const strong=document.createElement('strong');strong.textContent='まだ課題はありません';div.append(strong,document.createTextNode('最初の課題を登録してみよう。'));$('list').append(div);return;}
-[...tasks].sort((a,b)=>Number(a.done)-Number(b.done)||a.due.localeCompare(b.due)).forEach(t=>{
-const article=document.createElement('article');article.className='task'+(t.done?' done':'');
-const checkbox=document.createElement('input');checkbox.type='checkbox';checkbox.checked=t.done;checkbox.setAttribute('aria-label',t.title+'を'+(t.done?'未提出':'提出済み')+'にする');
-checkbox.onchange=()=>{t.done=checkbox.checked;render();document.getElementById('task-'+t.id)?.focus();$('status').textContent=t.done?'提出済みにしました。':'未提出に戻しました。';};checkbox.id='task-'+t.id;
-const text=document.createElement('div');text.className='text';
-for(const [className,value] of [['course',t.course],['title',t.title],['due'+(!t.done&&t.due<today?' late':''),t.due.replaceAll('-',' / ')+(t.done?' · 提出済み':t.due<today?' · 締切超過':t.due===today?' · 今日が締切':'')]]){const el=document.createElement('div');el.className=className;el.textContent=value;text.append(el);}
-article.append(checkbox,text);$('list').append(article);});
+
+function localDate(d){
+const pad=n=>String(n).padStart(2,'0');
+return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())+'T'+pad(d.getHours())+':'+pad(d.getMinutes());
 }
-$('form').onsubmit=e=>{e.preventDefault();const course=$('course').value.trim(),title=$('title').value.trim(),due=$('due').value;if(!courses.includes(course)||!title||!due){$('status').textContent='授業名と課題名を入力してください。';return;}tasks.push({id:crypto.randomUUID(),course,title,due,done:false});render();$('title').value='';$('due').value='';$('title').focus();$('status').textContent='体験用の課題を追加しました。';};
+function nextWeek(value){const d=new Date(value);d.setDate(d.getDate()+7);return localDate(d);}
+function firstDue(day,time,now=new Date()){
+const d=new Date(now);const [h,m]=time.split(':').map(Number);
+d.setDate(d.getDate()+(Number(day)-d.getDay()+7)%7);d.setHours(h,m,0,0);
+if(d<=now)d.setDate(d.getDate()+7);return localDate(d);
+}
+function addOccurrence(rule,due){
+if(tasks.some(t=>t.ruleId===rule.id&&t.due===due))return;
+tasks.push({id:crypto.randomUUID(),ruleId:rule.id,course:rule.course,title:rule.title,due,done:false,skipped:false});
+}
+function advanceRules(now=new Date()){
+rules.filter(r=>r.active).forEach(r=>{
+let last=tasks.filter(t=>t.ruleId===r.id).sort((a,b)=>a.due.localeCompare(b.due)).at(-1);
+while(last&&(last.done||last.skipped||new Date(last.due)<=now)){
+const due=nextWeek(last.due);addOccurrence(r,due);
+last=tasks.find(t=>t.ruleId===r.id&&t.due===due);
+}
+});
+}
+function element(tag,className,text){
+const el=document.createElement(tag);el.className=className;el.textContent=text;return el;
+}
+function render(){
+const now=new Date();advanceRules(now);
+$('pending').textContent=tasks.filter(t=>!t.done&&!t.skipped).length;
+$('done').textContent=tasks.filter(t=>t.done).length;
+$('late').textContent=tasks.filter(t=>!t.done&&!t.skipped&&new Date(t.due)<now).length;
+$('list').replaceChildren();
+if(!tasks.length)$('list').append(element('div','empty','まだ課題はありません。最初の課題を登録してみよう。'));
+[...tasks].sort((a,b)=>Number(a.done||a.skipped)-Number(b.done||b.skipped)||a.due.localeCompare(b.due)).forEach(t=>{
+const late=!t.done&&!t.skipped&&new Date(t.due)<now;
+const article=element('article','task'+(t.done||t.skipped?' done':''),'');
+const checkbox=document.createElement('input');checkbox.type='checkbox';checkbox.checked=t.done;checkbox.disabled=t.skipped;
+checkbox.id='task-'+t.id;checkbox.setAttribute('aria-label',t.title+'を'+(t.done?'未提出':'提出済み')+'にする');
+checkbox.onchange=()=>{t.done=checkbox.checked;render();document.getElementById('task-'+t.id)?.focus();$('status').textContent=t.done?'提出済みにしました。':'未提出に戻しました。';};
+const text=element('div','text','');
+text.append(element('div','course',t.course+' · '+(t.ruleId?'毎週':'不定期')),element('div','title',t.title),element('div','due'+(late?' late':''),t.due.replace('T',' ').replaceAll('-',' / ')+(t.skipped?' · スキップ済み':t.done?' · 提出済み':late?' · 締切超過':'')));
+if(t.ruleId&&!t.done){
+const skip=element('button','secondary',t.skipped?'スキップを取り消す':'この週は課題なし');skip.type='button';
+skip.onclick=()=>{t.skipped=!t.skipped;render();$('status').textContent=t.skipped?'この週をスキップしました。':'この週を未提出に戻しました。';};text.append(skip);
+}
+article.append(checkbox,text);$('list').append(article);
+});
+$('rules').replaceChildren();
+if(!rules.length)$('rules').append(element('p','hint','毎週の課題を登録すると、ここに表示されます。'));
+rules.forEach(r=>{
+const box=element('div','course-registration','');
+box.append(element('p','hint',r.course+'：'+r.title+' / 毎週'+['日','月','火','水','木','金','土'][r.day]+'曜 '+r.time));
+const toggle=element('button','secondary',r.active?'自動追加を停止':'自動追加を再開');toggle.type='button';
+toggle.onclick=()=>{
+r.active=!r.active;
+if(r.active)addOccurrence(r,firstDue(r.day,r.time));
+render();$('status').textContent=r.active?'次の締切から自動追加を再開しました。':'自動追加を停止しました。作成済みの課題は残ります。';
+};box.append(toggle);$('rules').append(box);
+});
+}
+$('kind').onchange=()=>{
+const weekly=$('kind').value==='weekly';$('once-fields').hidden=weekly;$('weekly-fields').hidden=!weekly;
+$('due').required=!weekly;$('time').required=weekly;
+$('add-task').textContent=weekly?'＋ 毎週の課題を登録':'＋ 課題を追加';
+};
+$('form').onsubmit=e=>{
+e.preventDefault();
+const course=$('course').value,title=$('title').value.trim(),weekly=$('kind').value==='weekly';
+const due=weekly?firstDue($('weekday').value,$('time').value):$('due').value;
+if(!courses.includes(course)||!title||!due||!Number.isFinite(new Date(due).getTime())){$('status').textContent='授業・課題名・締切を入力してください。';return;}
+if(weekly){
+const day=Number($('weekday').value),time=$('time').value;
+if(rules.some(r=>r.active&&r.course===course&&r.title===title&&r.day===day&&r.time===time)){$('status').textContent='同じ毎週の課題は登録済みです。';return;}
+const rule={id:crypto.randomUUID(),course,title,day,time,active:true};rules.push(rule);addOccurrence(rule,due);
+}else tasks.push({id:crypto.randomUUID(),course,title,due,done:false,skipped:false});
+render();$('title').value='';$('due').value='';$('title').focus();
+$('status').textContent=weekly?'毎週の課題を登録しました。次回分を自動で追加します。':'課題を追加しました。';
+};
 window.addEventListener('beforeunload',e=>{if(tasks.length||courses.length){e.preventDefault();e.returnValue='';}});
+window.addEventListener('focus',()=>render());
+setInterval(()=>render(),60000);
 renderCourses();render();
 </script></body></html>
