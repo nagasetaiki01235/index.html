@@ -1,0 +1,19 @@
+{
+  "id": "/",
+  "name": "課題ノート",
+  "short_name": "課題ノート",
+  "lang": "ja",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f8f7fc",
+  "theme_color": "#65558f",
+  "icons": [
+    {
+      "src": "/app-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
