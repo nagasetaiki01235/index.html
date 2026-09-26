@@ -10,7 +10,8 @@
 .primary{background:var(--primary);color:white;border:0;border-radius:999px;padding:15px 24px;min-height:48px;font-weight:650;width:100%;margin-top:24px}.new-task{display:block;width:auto;min-width:220px;margin:24px 0 0 auto;box-shadow:0 4px 10px #65558f20}.secondary{background:transparent;color:var(--primary);border:1px solid var(--line);border-radius:999px;padding:9px 17px;min-height:44px;margin-top:12px;font-size:14px}.task .secondary{font-size:12px;margin-left:10px}.form{padding:32px}.hint{font-size:13px;color:var(--muted);margin:8px 0 16px}label{display:block;font-size:13px;font-weight:650;margin:22px 0 8px}input,select{width:100%;min-width:0;color:var(--ink);background:#f8f5fc;border:1px solid #ada5b8;border-radius:12px;padding:14px;min-height:50px}input:focus,select:focus,button:focus-visible,summary:focus-visible{outline:3px solid #8a76b5;outline-offset:3px}#entry-screen{max-width:700px;margin:0 auto;background:var(--surface)}.course-registration{border-bottom:1px solid var(--line);padding-bottom:26px;margin-bottom:26px}.recurring-settings{border-top:1px solid var(--line);margin-top:32px;padding-top:28px}#status{background:#e2eee7;color:#234f3a;padding:12px 18px;border-radius:16px;font-size:14px}#status:empty{display:none}footer{font-size:12px;color:var(--muted);margin-top:24px}.history{margin-top:24px}.history summary{cursor:pointer;padding:16px 4px;color:var(--muted);font-size:14px}.history-list{display:grid;gap:10px}[hidden]{display:none!important}#list-heading:focus{outline:none}
 @media(max-width:600px){.wrap{padding:20px 16px 36px}header{margin-bottom:24px}.hero{padding:26px 24px;border-radius:26px}.hero:after{right:-20px;top:8px;font-size:120px;opacity:.5}.hero p{max-width:220px}.screen-nav{width:100%}.screen-nav button{flex:1;padding:12px 8px;font-size:14px}.stats{gap:8px;margin-bottom:24px}.stats>div{padding:16px 14px;border-radius:20px}.stats strong{font-size:30px}.stats span{font-size:12px}.task{padding:20px 16px;gap:14px}.title{font-size:16px}.form{padding:24px 20px}.new-task{width:100%}.brand{font-size:18px}.task .secondary{margin-left:0;display:block}.heading h2{font-size:19px}}
 @media(prefers-reduced-motion:reduce){button{transition:none}}
-</style></head><body><main class="wrap"><header><div class="brand"><b aria-hidden="true">✓</b>課題ノート</div><span class="tag">自動保存</span></header><div class="hero"><span class="eyebrow">MY STUDY NOTE</span><h1>課題を、ひとつずつ。</h1><p>締切を整理して、今日やることをクリアに。</p></div><div class="note" id="save-note" role="status">このブラウザに自動保存します。端末間の同期は未対応です。ブラウザのデータを削除すると登録内容も消えます。</div><nav class="screen-nav" aria-label="画面切り替え"><button type="button" id="show-list" aria-controls="list-screen" aria-pressed="true">課題一覧</button><button type="button" id="show-entry" aria-controls="entry-screen" aria-pressed="false">授業・課題を登録</button></nav><p id="status" role="status"></p><div id="list-screen"><div class="stats"><div><strong id="pending">0</strong><span>未提出</span></div><div><strong id="done">0</strong><span>提出済み</span></div><div><strong id="late">0</strong><span>締切超過</span></div></div><section class="panel" aria-label="課題一覧"><div class="heading"><h2 id="list-heading" tabindex="-1">課題一覧</h2><span class="tag">締切が近い順</span></div><div id="list"></div><details id="history" class="history" hidden><summary id="history-label">提出済み・スキップ</summary><div id="history-list" class="history-list"></div></details></section><button class="primary new-task" id="new-task" type="button">＋ 課題を登録する</button><footer>提出したら、課題の左にチェック。</footer></div><section id="entry-screen" class="panel form" aria-label="授業・課題の登録" hidden><div class="course-registration"><h2>授業を登録</h2><p class="hint">必要な授業だけでOK。あとから追加できます。</p><form id="course-form"><label for="new-course">新しい授業名</label><input id="new-course" maxlength="100" required placeholder="例：構造力学"><button class="secondary" type="submit">＋ 授業を登録</button></form></div><h2>課題を追加</h2><form id="form"><label for="course">授業を選択</label><select id="course" required aria-describedby="course-hint"></select><p class="hint" id="course-hint">まず上の欄で授業を登録してください。</p><button class="secondary" id="add-course" type="button">＋ 未登録の授業を追加</button><label for="title">課題名</label><input id="title" maxlength="200" required placeholder="例：第1回 演習レポート"><label for="kind">課題の種類</label><select id="kind"><option value="once">不定期（今回だけ）</option><option value="weekly">毎週</option></select><div id="once-fields"><label for="due">締切日時</label><input id="due" type="datetime-local" min="2000-01-01T00:00" max="2100-12-31T23:59" required></div><div id="weekly-fields" hidden><label for="weekday">締切の曜日</label><select id="weekday"><option value="0">日曜日</option><option value="1">月曜日</option><option value="2">火曜日</option><option value="3">水曜日</option><option value="4">木曜日</option><option value="5">金曜日</option><option value="6">土曜日</option></select><label for="time">締切の時刻</label><input id="time" type="time" value="09:00"><p class="hint">次に来る締切から作成します。提出・スキップ、または締切を過ぎると翌週分を追加します。</p></div><p class="hint">日時は端末のタイムゾーンで表示します。</p><button id="add-task" class="primary">＋ 課題を追加</button></form><div class="recurring-settings"><h2>毎週の設定</h2><div id="rules"></div></div></section></main><script>
+.optional-details{margin-top:20px;border:1px solid var(--line);border-radius:16px;padding:14px 18px}.optional-details summary{cursor:pointer;color:var(--primary);min-height:32px}.optional-details .hint{margin-bottom:0}
+</style></head><body><main class="wrap"><header><div class="brand"><b aria-hidden="true">✓</b>課題ノート</div><span class="tag">自動保存</span></header><div class="hero"><span class="eyebrow">MY STUDY NOTE</span><h1>課題を、ひとつずつ。</h1><p>締切を整理して、今日やることをクリアに。</p></div><div class="note" id="save-note" role="status">このブラウザに自動保存します。端末間の同期は未対応です。ブラウザのデータを削除すると登録内容も消えます。</div><nav class="screen-nav" aria-label="画面切り替え"><button type="button" id="show-list" aria-controls="list-screen" aria-pressed="true">課題一覧</button><button type="button" id="show-entry" aria-controls="entry-screen" aria-pressed="false">授業・課題を登録</button></nav><p id="status" role="status"></p><div id="list-screen"><div class="stats"><div><strong id="pending">0</strong><span>未提出</span></div><div><strong id="done">0</strong><span>提出済み</span></div><div><strong id="late">0</strong><span>締切超過</span></div></div><section class="panel" aria-label="課題一覧"><div class="heading"><h2 id="list-heading" tabindex="-1">課題一覧</h2><span class="tag">締切が近い順</span></div><div id="list"></div><details id="history" class="history" hidden><summary id="history-label">提出済み・スキップ</summary><div id="history-list" class="history-list"></div></details></section><button class="primary new-task" id="new-task" type="button">＋ 課題を登録する</button><footer>提出したら、課題の左にチェック。</footer></div><section id="entry-screen" class="panel form" aria-label="授業・課題の登録" hidden><div class="course-registration"><h2>授業を登録</h2><p class="hint">必要な授業だけでOK。あとから追加できます。</p><form id="course-form"><label for="new-course">新しい授業名</label><input id="new-course" maxlength="100" required placeholder="例：構造力学"><button class="secondary" type="submit">＋ 授業を登録</button></form></div><h2>課題を追加</h2><form id="form"><label for="course">授業を選択</label><select id="course" required aria-describedby="course-hint"></select><p class="hint" id="course-hint">まず上の欄で授業を登録してください。</p><button class="secondary" id="add-course" type="button">＋ 未登録の授業を追加</button><label for="kind">課題の種類</label><select id="kind"><option value="once">不定期（今回だけ）</option><option value="weekly">毎週</option></select><div id="once-fields"><label for="due">締切日時</label><input id="due" type="datetime-local" min="2000-01-01T00:00" max="2100-12-31T23:59" required></div><div id="weekly-fields" hidden><label for="weekday">締切の曜日</label><select id="weekday"><option value="0">日曜日</option><option value="1">月曜日</option><option value="2">火曜日</option><option value="3">水曜日</option><option value="4">木曜日</option><option value="5">金曜日</option><option value="6">土曜日</option></select><label for="time">締切の時刻</label><input id="time" type="time" value="09:00"><p class="hint">次に来る締切から作成します。提出・スキップ、または締切を過ぎると翌週分を追加します。</p></div><p class="hint">日時は端末のタイムゾーンで表示します。</p><details id="task-details" class="optional-details"><summary>詳細を追加</summary><label for="title">課題名（任意）</label><input id="title" maxlength="200" placeholder="例：第3回レポート"><p class="hint">空欄なら、一覧には授業名を表示します。</p></details><button id="add-task" class="primary">＋ 課題を追加</button></form><div class="recurring-settings"><h2>毎週の設定</h2><div id="rules"></div></div></section></main><script>
 'use strict';
 const tasks=[];const rules=[];const courses=[];const $=id=>document.getElementById(id);
 
@@ -20,8 +21,8 @@ const savedNote='このブラウザに保存済みです。端末間の同期は
 function validData(d){
 const str=v=>typeof v==='string'&&v.length>0;
 return d&&d.version===1&&Array.isArray(d.courses)&&d.courses.every(str)&&Array.isArray(d.tasks)&&Array.isArray(d.rules)&&
-d.tasks.every(t=>t&&str(t.id)&&str(t.course)&&str(t.title)&&typeof t.due==='string'&&/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(t.due)&&Number.isFinite(new Date(t.due).getTime())&&typeof t.done==='boolean'&&typeof t.skipped==='boolean')&&
-d.rules.every(r=>r&&str(r.id)&&str(r.course)&&str(r.title)&&Number.isInteger(r.day)&&r.day>=0&&r.day<=6&&typeof r.time==='string'&&/^([01]\d|2[0-3]):[0-5]\d$/.test(r.time)&&typeof r.active==='boolean');
+d.tasks.every(t=>t&&str(t.id)&&str(t.course)&&typeof t.title==='string'&&typeof t.due==='string'&&/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(t.due)&&Number.isFinite(new Date(t.due).getTime())&&typeof t.done==='boolean'&&typeof t.skipped==='boolean')&&
+d.rules.every(r=>r&&str(r.id)&&str(r.course)&&typeof r.title==='string'&&Number.isInteger(r.day)&&r.day>=0&&r.day<=6&&typeof r.time==='string'&&/^([01]\d|2[0-3]):[0-5]\d$/.test(r.time)&&typeof r.active==='boolean');
 }
 function loadSaved(){
 try{
@@ -47,7 +48,7 @@ function showScreen(screen,focus=false){
 const entry=screen==='entry';
 $('list-screen').hidden=entry;$('entry-screen').hidden=!entry;
 $('show-list').setAttribute('aria-pressed',String(!entry));$('show-entry').setAttribute('aria-pressed',String(entry));
-if(focus)(entry?$(courses.length?'title':'new-course'):$('list-heading')).focus();
+if(focus)(entry?$(courses.length?'course':'new-course'):$('list-heading')).focus();
 }
 $('show-list').onclick=()=>showScreen('list',true);
 $('show-entry').onclick=()=>showScreen('entry',true);
@@ -65,7 +66,7 @@ e.preventDefault();const name=$('new-course').value.trim().replace(/\s+/g,' ');
 if(!name){$('status').textContent='授業名を入力してください。';$('new-course').focus();return;}
 const existing=courses.find(c=>c.normalize('NFKC').toLocaleLowerCase()===name.normalize('NFKC').toLocaleLowerCase());
 if(!existing)courses.push(name);
-save();renderCourses(existing||name);$('new-course').value='';$('title').focus();
+save();renderCourses(existing||name);$('new-course').value='';$('kind').focus();
 $('status').textContent=existing?'登録済みの授業を選択しました。':'授業を登録しました。この授業の課題を追加できます。';
 };
 
@@ -110,10 +111,10 @@ const empty=element('div','empty','');empty.append(element('strong','',tasks.len
 const late=!t.done&&!t.skipped&&new Date(t.due)<now;
 const article=element('article','task'+(t.done||t.skipped?' done':''),'');
 const checkbox=document.createElement('input');checkbox.type='checkbox';checkbox.checked=t.done;checkbox.disabled=t.skipped;
-checkbox.id='task-'+t.id;checkbox.setAttribute('aria-label',t.title+'を'+(t.done?'未提出':'提出済み')+'にする');
+checkbox.id='task-'+t.id;checkbox.setAttribute('aria-label',(t.title||t.course)+'を'+(t.done?'未提出':'提出済み')+'にする');
 checkbox.onchange=()=>{t.done=checkbox.checked;render();if(t.done)$('history').open=true;document.getElementById('task-'+t.id)?.focus();$('status').textContent=t.done?'提出済みにしました。':'未提出に戻しました。';};
 const text=element('div','text','');
-text.append(element('div','course',t.course+' · '+(t.ruleId?'毎週':'不定期')),element('div','title',t.title),element('div','due'+(late?' late':''),t.due.replace('T',' ').replaceAll('-',' / ')+(t.skipped?' · スキップ済み':t.done?' · 提出済み':late?' · 締切超過':'')));
+text.append(element('div','course',(t.title?t.course+' · ':'')+(t.ruleId?'毎週':'不定期')),element('div','title',t.title||t.course),element('div','due'+(late?' late':''),t.due.replace('T',' ').replaceAll('-',' / ')+(t.skipped?' · スキップ済み':t.done?' · 提出済み':late?' · 締切超過':'')));
 if(!t.done&&!t.skipped){
 const minutes=Math.ceil((new Date(t.due)-now)/60000);
 const remaining=minutes<=0?'締切超過':minutes<60?'あと'+minutes+'分':minutes<1440?'あと'+Math.ceil(minutes/60)+'時間':'あと'+Math.floor(minutes/1440)+'日';
@@ -129,7 +130,7 @@ $('rules').replaceChildren();
 if(!rules.length)$('rules').append(element('p','hint','毎週の課題を登録すると、ここに表示されます。'));
 rules.forEach(r=>{
 const box=element('div','course-registration','');
-box.append(element('p','hint',r.course+'：'+r.title+' / 毎週'+['日','月','火','水','木','金','土'][r.day]+'曜 '+r.time));
+box.append(element('p','hint',r.course+(r.title?'：'+r.title:'')+' / 毎週'+['日','月','火','水','木','金','土'][r.day]+'曜 '+r.time));
 const toggle=element('button','secondary',r.active?'自動追加を停止':'自動追加を再開');toggle.type='button';
 toggle.onclick=()=>{
 r.active=!r.active;
@@ -147,13 +148,13 @@ $('form').onsubmit=e=>{
 e.preventDefault();
 const course=$('course').value,title=$('title').value.trim(),weekly=$('kind').value==='weekly';
 const due=weekly?firstDue($('weekday').value,$('time').value):$('due').value;
-if(!courses.includes(course)||!title||!due||!Number.isFinite(new Date(due).getTime())){$('status').textContent='授業・課題名・締切を入力してください。';return;}
+if(!courses.includes(course)||!due||!Number.isFinite(new Date(due).getTime())){$('status').textContent='授業と締切を入力してください。';return;}
 if(weekly){
 const day=Number($('weekday').value),time=$('time').value;
 if(rules.some(r=>r.active&&r.course===course&&r.title===title&&r.day===day&&r.time===time)){$('status').textContent='同じ毎週の課題は登録済みです。';return;}
 const rule={id:crypto.randomUUID(),course,title,day,time,active:true};rules.push(rule);addOccurrence(rule,due);
 }else tasks.push({id:crypto.randomUUID(),course,title,due,done:false,skipped:false});
-render();$('title').value='';$('due').value='';showScreen('list',true);
+render();$('title').value='';$('task-details').open=false;$('due').value='';showScreen('list',true);
 $('status').textContent=weekly?'毎週の課題を登録しました。次回分を自動で追加します。':'課題を追加しました。';
 };
 window.addEventListener('beforeunload',e=>{if(saveFailed&&(tasks.length||courses.length)){e.preventDefault();e.returnValue='';}});
