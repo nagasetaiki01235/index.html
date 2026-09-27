@@ -13,7 +13,7 @@
 .optional-details{margin-top:20px;border:1px solid var(--line);border-radius:16px;padding:14px 18px}.optional-details summary{cursor:pointer;color:var(--primary);min-height:32px}.optional-details .hint{margin-bottom:0}
 .complete-dialog{border:0;border-radius:28px;padding:28px;background:var(--surface);color:var(--ink);width:min(420px,calc(100% - 32px));box-shadow:0 16px 60px #211f2633}.complete-dialog::backdrop{background:#211f2670}.complete-dialog p{overflow-wrap:anywhere}.dialog-actions{display:flex;justify-content:flex-end;gap:12px;margin-top:24px}.dialog-actions button{width:auto;margin:0}
 header .settings-button{margin:0;flex-shrink:0;display:flex;align-items:center;gap:6px}#settings-screen{max-width:700px;margin:auto}#settings-heading{font-size:28px;letter-spacing:0}#settings-heading:focus{outline:none}#settings-back{margin:0}.settings-storage{background:var(--surface);margin-top:20px}#save-note:empty{display:none}#save-note:not(:empty){background:#ffdad6;color:#8a211b;padding:14px 18px;border-radius:16px}
-</style><link rel="manifest" href="/manifest.webmanifest"><meta name="theme-color" content="#65558f"><meta name="apple-mobile-web-app-capable" content="yes"></head><body><main class="wrap"><header><div class="brand"><b aria-hidden="true">✓</b>課題ノート</div><button type="button" class="secondary settings-button" id="show-settings" aria-controls="settings-screen" aria-pressed="false"><span aria-hidden="true">⚙</span> 設定</button></header><div class="hero" id="hero"><span class="eyebrow">MY STUDY NOTE</span><h1>課題を、ひとつずつ。</h1><p>締切を整理して、今日やることをクリアに。</p></div><div class="note" id="save-note" role="status"></div><nav id="screen-nav" class="screen-nav" aria-label="画面切り替え"><button type="button" id="show-list" aria-controls="list-screen" aria-pressed="true">課題一覧</button><button type="button" id="show-entry" aria-controls="entry-screen" aria-pressed="false">授業・課題を登録</button></nav><p id="status" role="status"></p><div id="list-screen"><div class="stats"><div><strong id="pending">0</strong><span>未提出</span></div><div><strong id="done">0</strong><span>提出済み</span></div><div><strong id="late">0</strong><span>締切超過</span></div></div><section class="panel" aria-label="課題一覧"><div class="heading"><h2 id="list-heading" tabindex="-1">課題一覧</h2><span class="tag">締切が近い順</span></div><div id="list"></div><details id="history" class="history" hidden><summary id="history-label">提出済み・スキップ</summary><div id="history-list" class="history-list"></div></details></section><button class="primary new-task" id="new-task" type="button">＋ 課題を登録する</button><footer>提出したら、課題の左にチェック。毎週の課題は、未完了のうち最も古い締切の1件を表示します。</footer></div><section id="entry-screen" class="panel form" aria-label="授業・課題の登録" hidden><div class="course-registration"><h2>授業を登録</h2><p class="hint">必要な授業だけでOK。あとから追加できます。</p><form id="course-form"><label for="new-course">新しい授業名</label><input id="new-course" maxlength="100" required placeholder="例：構造力学"><button class="secondary" type="submit">＋ 授業を登録</button></form></div><h2>課題を追加</h2><form id="form"><label for="course">授業を選択</label><select id="course" required aria-describedby="course-hint"></select><p class="hint" id="course-hint">まず上の欄で授業を登録してください。</p><button class="secondary" id="add-course" type="button">＋ 未登録の授業を追加</button><label for="kind">課題の種類</label><select id="kind"><option value="once">不定期（今回だけ）</option><option value="weekly">毎週</option></select><div id="once-fields"><label for="due">締切日時</label><input id="due" type="datetime-local" min="2000-01-01T00:00" max="2100-12-31T23:59" required></div><div id="weekly-fields" hidden><label for="weekday">締切の曜日</label><select id="weekday"><option value="0">日曜日</option><option value="1">月曜日</option><option value="2">火曜日</option><option value="3">水曜日</option><option value="4">木曜日</option><option value="5">金曜日</option><option value="6">土曜日</option></select><label for="time">締切の時刻</label><input id="time" type="time" value="09:00"><p class="hint">次に来る締切から作成します。提出・スキップ、または締切を過ぎると翌週分を追加します。</p></div><p class="hint">日時は端末のタイムゾーンで表示します。</p><details id="task-details" class="optional-details"><summary>詳細を追加</summary><label for="title">課題名（任意）</label><input id="title" maxlength="200" placeholder="例：第3回レポート"><p class="hint">空欄なら、一覧には授業名を表示します。</p></details><button id="add-task" class="primary">＋ 課題を追加</button></form><div class="recurring-settings"><h2>毎週の設定</h2><div id="rules"></div></div></section><section id="settings-screen" aria-labelledby="settings-heading" hidden><div class="heading"><h1 id="settings-heading" tabindex="-1">設定</h1><button type="button" class="secondary" id="settings-back">戻る</button></div><section class="form panel" style="background:var(--surface);margin-top:24px" aria-label="締切の通知"><h2>締切の通知</h2><p class="hint">前日・1時間前にお知らせ。通知を有効にすると、通知先と授業名・課題名・締切を通知用サーバーへ保存します。</p><p class="hint">iPhoneはSafariの共有メニュー →「ホーム画面に追加」→ 追加したアイコンから開いてください。毎週の課題は90日先まで予約し、アプリを開くと更新します。通知には数分の遅れが出る場合があります。</p><button type="button" class="secondary" id="push-enable">通知を有効にする</button><button type="button" class="secondary" id="push-test" hidden>テスト通知</button><button type="button" class="secondary" id="push-disable" hidden>通知を停止</button><p class="hint" id="push-status" role="status">通知はオフです。</p></section><section class="form panel settings-storage" aria-labelledby="storage-heading"><h2 id="storage-heading">データの保存について</h2><p class="hint">登録した授業・課題・完了状態は、この端末のブラウザに自動保存されます。</p><p class="hint">iPhoneとPCなど、端末間の同期には対応していません。ブラウザのサイトデータを削除すると、登録内容も消えます。</p><p class="hint">入力途中で、まだ登録していない内容は保存されません。</p></section></section></main><dialog id="complete-dialog" class="complete-dialog" aria-labelledby="complete-heading" aria-describedby="complete-description"><h2 id="complete-heading">この課題を完了にしますか？</h2><p id="complete-description"></p><div class="dialog-actions"><button type="button" class="secondary" id="complete-cancel" autofocus>キャンセル</button><button type="button" class="primary" id="complete-confirm">完了にする</button></div></dialog><script>
+#manage-screen{max-width:700px;margin:auto}.manage-course{background:var(--surface);border-radius:24px;padding:24px;margin-bottom:16px}.manage-course summary{cursor:pointer;font-size:19px;font-weight:650;overflow-wrap:anywhere}.manage-row{border-top:1px solid var(--line);padding:18px 0;overflow-wrap:anywhere}.manage-actions{display:flex;gap:8px;flex-wrap:wrap}.manage-actions button{margin:0}.manage-course> .manage-actions{margin:16px 0}.manage-row p{margin:4px 0 12px}.edit-dialog{max-height:85dvh;overflow:auto}.screen-nav{max-width:100%}@media(max-width:600px){.screen-nav button{padding:12px 6px;font-size:12px}.manage-course{padding:20px 16px}} </style><link rel="manifest" href="/manifest.webmanifest"><meta name="theme-color" content="#65558f"><meta name="apple-mobile-web-app-capable" content="yes"></head><body><main class="wrap"><header><div class="brand"><b aria-hidden="true">✓</b>課題ノート</div><button type="button" class="secondary settings-button" id="show-settings" aria-controls="settings-screen" aria-pressed="false"><span aria-hidden="true">⚙</span> 設定</button></header><div class="hero" id="hero"><span class="eyebrow">MY STUDY NOTE</span><h1>課題を、ひとつずつ。</h1><p>締切を整理して、今日やることをクリアに。</p></div><div class="note" id="save-note" role="status"></div><nav id="screen-nav" class="screen-nav" aria-label="画面切り替え"><button type="button" id="show-list" aria-controls="list-screen" aria-pressed="true">課題一覧</button><button type="button" id="show-entry" aria-controls="entry-screen" aria-pressed="false">授業・課題を登録</button><button type="button" id="show-manage" aria-controls="manage-screen" aria-pressed="false">登録内容</button></nav><p id="status" role="status"></p><div id="list-screen"><div class="stats"><div><strong id="pending">0</strong><span>未提出</span></div><div><strong id="done">0</strong><span>提出済み</span></div><div><strong id="late">0</strong><span>締切超過</span></div></div><section class="panel" aria-label="課題一覧"><div class="heading"><h2 id="list-heading" tabindex="-1">課題一覧</h2><span class="tag">締切が近い順</span></div><div id="list"></div><details id="history" class="history" hidden><summary id="history-label">提出済み・スキップ</summary><div id="history-list" class="history-list"></div></details></section><button class="primary new-task" id="new-task" type="button">＋ 課題を登録する</button><footer>提出したら、課題の左にチェック。毎週の課題は、未完了のうち最も古い締切の1件を表示します。</footer></div><section id="entry-screen" class="panel form" aria-label="授業・課題の登録" hidden><div class="course-registration"><h2>授業を登録</h2><p class="hint">必要な授業だけでOK。あとから追加できます。</p><form id="course-form"><label for="new-course">新しい授業名</label><input id="new-course" maxlength="100" required placeholder="例：構造力学"><button class="secondary" type="submit">＋ 授業を登録</button></form></div><h2>課題を追加</h2><form id="form"><label for="course">授業を選択</label><select id="course" required aria-describedby="course-hint"></select><p class="hint" id="course-hint">まず上の欄で授業を登録してください。</p><button class="secondary" id="add-course" type="button">＋ 未登録の授業を追加</button><label for="kind">課題の種類</label><select id="kind"><option value="once">不定期（今回だけ）</option><option value="weekly">毎週</option></select><div id="once-fields"><label for="due">締切日時</label><input id="due" type="datetime-local" min="2000-01-01T00:00" max="2100-12-31T23:59" required></div><div id="weekly-fields" hidden><label for="weekday">締切の曜日</label><select id="weekday"><option value="0">日曜日</option><option value="1">月曜日</option><option value="2">火曜日</option><option value="3">水曜日</option><option value="4">木曜日</option><option value="5">金曜日</option><option value="6">土曜日</option></select><label for="time">締切の時刻</label><input id="time" type="time" value="09:00"><p class="hint">次に来る締切から作成します。提出・スキップ、または締切を過ぎると翌週分を追加します。</p></div><p class="hint">日時は端末のタイムゾーンで表示します。</p><details id="task-details" class="optional-details"><summary>詳細を追加</summary><label for="title">課題名（任意）</label><input id="title" maxlength="200" placeholder="例：第3回レポート"><p class="hint">空欄なら、一覧には授業名を表示します。</p></details><button id="add-task" class="primary">＋ 課題を追加</button></form></section><section id="settings-screen" aria-labelledby="settings-heading" hidden><div class="heading"><h1 id="settings-heading" tabindex="-1">設定</h1><button type="button" class="secondary" id="settings-back">戻る</button></div><section class="form panel" style="background:var(--surface);margin-top:24px" aria-label="締切の通知"><h2>締切の通知</h2><p class="hint">前日・1時間前にお知らせ。通知を有効にすると、通知先と授業名・課題名・締切を通知用サーバーへ保存します。</p><p class="hint">iPhoneはSafariの共有メニュー →「ホーム画面に追加」→ 追加したアイコンから開いてください。毎週の課題は90日先まで予約し、アプリを開くと更新します。通知には数分の遅れが出る場合があります。</p><button type="button" class="secondary" id="push-enable">通知を有効にする</button><button type="button" class="secondary" id="push-test" hidden>テスト通知</button><button type="button" class="secondary" id="push-disable" hidden>通知を停止</button><p class="hint" id="push-status" role="status">通知はオフです。</p></section><section class="form panel settings-storage" aria-labelledby="storage-heading"><h2 id="storage-heading">データの保存について</h2><p class="hint">登録した授業・課題・完了状態は、この端末のブラウザに自動保存されます。</p><p class="hint">iPhoneとPCなど、端末間の同期には対応していません。ブラウザのサイトデータを削除すると、登録内容も消えます。</p><p class="hint">入力途中で、まだ登録していない内容は保存されません。</p></section></section><section id="manage-screen" aria-labelledby="manage-heading" hidden><div class="heading"><h2 id="manage-heading" tabindex="-1">登録内容</h2></div><p class="hint">授業ごとに、課題と繰り返しの設定を確認できます。</p><div id="manage-list"></div><div id="rules" hidden></div></section></main><dialog id="edit-dialog" class="complete-dialog edit-dialog" aria-labelledby="edit-heading"><h2 id="edit-heading">登録内容を編集</h2><form id="edit-form"><label for="edit-name" id="edit-name-label">課題名（任意）</label><input id="edit-name" maxlength="200"><div id="edit-once"><label for="edit-due">締切日時</label><input id="edit-due" type="datetime-local" min="2000-01-01T00:00" max="2100-12-31T23:59"></div><div id="edit-weekly"><label for="edit-day">締切の曜日</label><select id="edit-day"><option value="0">日曜日</option><option value="1">月曜日</option><option value="2">火曜日</option><option value="3">水曜日</option><option value="4">木曜日</option><option value="5">金曜日</option><option value="6">土曜日</option></select><label for="edit-time">締切の時刻</label><input type="time" id="edit-time"><p class="hint">曜日・時刻を変更すると、締切が未来の未完了分を次の締切から作り直します。締切超過分と完了・スキップ履歴は残ります。</p></div><p id="edit-error" role="alert" class="hint"></p><div class="dialog-actions"><button type="button" id="edit-cancel" class="secondary">キャンセル</button><button type="submit" class="primary">保存する</button></div></form></dialog><dialog id="complete-dialog" class="complete-dialog" aria-labelledby="complete-heading" aria-describedby="complete-description"><h2 id="complete-heading">この課題を完了にしますか？</h2><p id="complete-description"></p><div class="dialog-actions"><button type="button" class="secondary" id="complete-cancel" autofocus>キャンセル</button><button type="button" class="primary" id="complete-confirm">完了にする</button></div></dialog><script>
 'use strict';
 const tasks=[];const rules=[];const courses=[];const $=id=>document.getElementById(id);
 
@@ -53,15 +53,17 @@ function showScreen(screen,focus=false){
 const entry=screen==='entry',settings=screen==='settings';
 if(settings&&currentScreen!=='settings')settingsReturnScreen=currentScreen;
 currentScreen=screen;
+$('manage-screen').hidden=screen!=='manage';$('show-manage').setAttribute('aria-pressed',String(screen==='manage'));
 $('list-screen').hidden=screen!=='list';$('entry-screen').hidden=!entry;$('settings-screen').hidden=!settings;
 $('hero').hidden=settings;$('screen-nav').hidden=settings;$('status').hidden=settings;
 $('show-list').setAttribute('aria-pressed',String(screen==='list'));
 $('show-entry').setAttribute('aria-pressed',String(entry));
 $('show-settings').setAttribute('aria-pressed',String(settings));
-if(focus)(settings?$('settings-heading'):entry?$(courses.length?'course':'new-course'):$('list-heading')).focus();
+if(focus)(settings?$('settings-heading'):screen==='manage'?$('manage-heading'):entry?$(courses.length?'course':'new-course'):$('list-heading')).focus();
 }
 $('show-settings').onclick=()=>showScreen('settings',true);
 $('settings-back').onclick=()=>{showScreen(settingsReturnScreen);$('show-settings').focus();};
+$('show-manage').onclick=()=>showScreen('manage',true);
 $('show-list').onclick=()=>showScreen('list',true);
 $('show-entry').onclick=()=>showScreen('entry',true);
 $('new-task').onclick=()=>showScreen('entry',true);
@@ -160,6 +162,7 @@ skip.onclick=()=>{t.skipped=!t.skipped;render();$('status').textContent=t.skippe
 }
 article.append(checkbox,text);$(t.done||t.skipped?'history-list':'list').append(article);
 });
+renderManage();
 $('rules').replaceChildren();
 if(!rules.length)$('rules').append(element('p','hint','毎週の課題を登録すると、ここに表示されます。'));
 rules.forEach(r=>{
@@ -194,5 +197,89 @@ $('status').textContent=weekly?'毎週の課題を登録しました。次回分
 window.addEventListener('beforeunload',e=>{if(saveFailed&&(tasks.length||courses.length)){e.preventDefault();e.returnValue='';}});
 window.addEventListener('focus',()=>render());
 setInterval(()=>render(),60000);
+
+let editTarget=null;
+function removeWhere(array,predicate){for(let i=array.length-1;i>=0;i--)if(predicate(array[i]))array.splice(i,1);}
+function refreshManaged(message){
+const selected=$('course').value;renderCourses(selected);render();$('status').textContent=message;
+}
+function manageButton(label,action){
+const button=element('button','secondary',label);button.type='button';button.onclick=action;return button;
+}
+function openEditor(type,item){
+editTarget={type,id:type==='course'?item:item.id};
+$('edit-heading').textContent=type==='course'?'授業名を編集':type==='rule'?'毎週の課題を編集':'課題を編集';
+$('edit-name-label').textContent=type==='course'?'授業名':'課題名（任意）';
+$('edit-name').value=type==='course'?item:item.title;$('edit-name').required=type==='course';$('edit-name').maxLength=type==='course'?100:200;
+$('edit-once').hidden=type!=='task';$('edit-due').required=type==='task';
+$('edit-weekly').hidden=type!=='rule';$('edit-time').required=type==='rule';
+if(type==='task')$('edit-due').value=item.due;
+if(type==='rule'){$('edit-day').value=item.day;$('edit-time').value=item.time;}
+$('edit-error').textContent='';$('edit-dialog').showModal();
+}
+$('edit-cancel').onclick=()=>$('edit-dialog').close();
+$('edit-form').onsubmit=e=>{
+e.preventDefault();if(!editTarget)return;
+const {type,id}=editTarget,name=$('edit-name').value.trim();
+if(type==='course'){
+const normalized=name.replace(/\s+/g,' ');
+if(!normalized){$('edit-error').textContent='授業名を入力してください。';return;}
+if(courses.some(c=>c!==id&&c.normalize('NFKC').toLowerCase()===normalized.normalize('NFKC').toLowerCase())){$('edit-error').textContent='同じ名前の授業が登録されています。';return;}
+const index=courses.indexOf(id);if(index<0)return;courses[index]=normalized;
+tasks.filter(t=>t.course===id).forEach(t=>t.course=normalized);rules.filter(r=>r.course===id).forEach(r=>r.course=normalized);
+}else if(type==='task'){
+const t=tasks.find(t=>t.id===id);if(!t)return;
+const due=$('edit-due').value;if(!due||!Number.isFinite(new Date(due).getTime()))return;
+t.title=name;t.due=due;
+}else{
+const r=rules.find(r=>r.id===id);if(!r)return;
+const day=Number($('edit-day').value),time=$('edit-time').value;
+if(rules.some(other=>other.id!==id&&other.active&&other.course===r.course&&other.title===name&&other.day===day&&other.time===time)){$('edit-error').textContent='同じ毎週の課題が登録されています。';return;}
+const changed=day!==r.day||time!==r.time;
+r.title=name;r.day=day;r.time=time;
+tasks.filter(t=>t.ruleId===id&&!t.done&&!t.skipped).forEach(t=>t.title=name);
+if(changed){const now=new Date();removeWhere(tasks,t=>t.ruleId===id&&!t.done&&!t.skipped&&new Date(t.due)>now);if(r.active)addOccurrence(r,firstDue(day,time));}
+}
+$('edit-dialog').close();refreshManaged('登録内容を更新しました。');
+};
+function renderManage(){
+const opened=new Set([...$('manage-list').children].filter(el=>el.open).map(el=>el.dataset.course));
+$('manage-list').replaceChildren();
+if(!courses.length){$('manage-list').append(element('p','empty','授業はまだ登録されていません。'));return;}
+courses.forEach(course=>{
+const box=document.createElement('details');box.className='manage-course';box.dataset.course=course;box.open=opened.has(course);
+box.append(element('summary','',course));
+const actions=element('div','manage-actions','');
+actions.append(manageButton('授業名を編集',()=>openEditor('course',course)),manageButton('授業を削除',()=>{
+if(!confirm('「'+course+'」を削除しますか？\nこの授業の課題・完了履歴・毎週の設定もすべて削除します。元に戻せません。'))return;
+removeWhere(tasks,t=>t.course===course);removeWhere(rules,r=>r.course===course);removeWhere(courses,c=>c===course);refreshManaged('授業と関連する課題を削除しました。');
+}));box.append(actions);
+rules.filter(r=>r.course===course).forEach(r=>{
+const row=element('div','manage-row','');row.append(element('strong','',r.title||'毎週の課題'),element('p','hint','毎週'+['日','月','火','水','木','金','土'][r.day]+'曜 '+r.time+' ／ '+(r.active?'自動追加中':'停止中')));
+const buttons=element('div','manage-actions','');
+buttons.append(manageButton('編集',()=>openEditor('rule',r)),manageButton(r.active?'停止':'再開',()=>{
+r.active=!r.active;if(r.active)addOccurrence(r,firstDue(r.day,r.time));refreshManaged(r.active?'毎週の課題を再開しました。':'繰り返しを停止しました。作成済みの課題は残ります。');
+}),manageButton('繰り返しを削除',()=>{
+if(!confirm('この毎週の設定と未完了の課題を削除しますか？\n完了・スキップ履歴は残ります。元に戻せません。'))return;
+removeWhere(tasks,t=>t.ruleId===r.id&&!t.done&&!t.skipped);tasks.filter(t=>t.ruleId===r.id).forEach(t=>delete t.ruleId);removeWhere(rules,x=>x.id===r.id);refreshManaged('繰り返しを削除しました。');
+}));row.append(buttons);box.append(row);
+});
+tasks.filter(t=>t.course===course).sort((a,b)=>a.due.localeCompare(b.due)).forEach(t=>{
+const row=element('div','manage-row','');row.append(element('strong','',t.title||course),element('p','hint',t.due.replace('T',' ')+' ／ '+(t.done?'提出済み':t.skipped?'スキップ済み':'未提出')+(t.ruleId?' ／ 毎週':'')));
+const buttons=element('div','manage-actions','');
+if(!t.ruleId)buttons.append(manageButton('編集',()=>openEditor('task',t)));
+if(t.ruleId){if(!t.done&&!t.skipped)buttons.append(manageButton('今回だけスキップ',()=>{
+if(!confirm('この週の課題だけをスキップしますか？\n毎週の繰り返しは続きます。'))return;t.skipped=true;refreshManaged('この週をスキップしました。');
+}));}else buttons.append(manageButton('削除',()=>{
+if(!confirm('この課題を削除しますか？\n'+(t.title||t.course)+' ／ '+t.due.replace('T',' ')+'\n元に戻せません。'))return;
+removeWhere(tasks,x=>x.id===t.id);refreshManaged('課題を削除しました。');
+}));
+row.append(buttons);box.append(row);
+});
+if(!tasks.some(t=>t.course===course)&&!rules.some(r=>r.course===course))box.append(element('p','hint','課題はまだ登録されていません。'));
+$('manage-list').append(box);
+});
+}
+
 renderCourses();render();
 </script><script src="/notifications.js"></script></body></html>
