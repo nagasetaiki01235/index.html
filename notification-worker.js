@@ -72,7 +72,7 @@ async function validateSubscription(s){
 }
 async function send(s,message,k){
   await validateSubscription(s);
-  return fetch(s.endpoint,{method:'POST',redirect:'error',signal:AbortSignal.timeout(15000),headers:{Authorization:await authorization(s.endpoint,k),'Content-Encoding':'aes128gcm','Content-Type':'application/octet-stream',TTL:'3600',Urgency:'normal'},body:await encrypt(s,message)});
+  return fetch(s.endpoint,{method:'POST',redirect:'manual',signal:AbortSignal.timeout(15000),headers:{Authorization:await authorization(s.endpoint,k),'Content-Encoding':'aes128gcm','Content-Type':'application/octet-stream',TTL:'3600',Urgency:'normal'},body:await encrypt(s,message)});
 }
 async function readJson(request){
   if(!request.headers.get('Content-Type')?.includes('application/json'))fail(415,'JSON required');
