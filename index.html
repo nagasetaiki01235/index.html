@@ -77,6 +77,37 @@ header .settings-button{margin:0;flex-shrink:0;display:flex;align-items:center;g
 .manage-row{border:0;background:var(--bg);border-radius:16px;padding:18px;margin-top:12px}
 .hero .hero-decoration{position:absolute;right:32px;top:14px;width:164px;height:164px;color:#b7a3d5;opacity:.55;stroke-width:1.25;transform:rotate(12deg);pointer-events:none;z-index:0}
 @media(max-width:600px){.hero .hero-decoration{right:-12px;top:22px;width:118px;height:118px;opacity:.35}}
+
+.phrase{display:inline-block}
+.hint,.note,footer,.title,.manage-row,.manage-course summary{line-break:strict;overflow-wrap:anywhere}
+button{word-break:keep-all;overflow-wrap:normal}
+@media(max-width:600px){
+.wrap{padding:16px max(16px,env(safe-area-inset-right)) max(28px,env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left))}
+header{gap:12px;margin-bottom:18px}.brand{display:flex;align-items:center;white-space:nowrap;font-size:18px}.brand b{margin-right:8px;width:36px;height:36px;border-radius:12px}
+header .settings-button{padding:9px 13px}
+.hero{padding:24px 20px;border-radius:24px}
+.hero .hero-decoration{right:20px;top:18px;width:42px;height:42px;transform:none;opacity:.6}
+.hero .eyebrow{display:block;min-height:40px;padding-right:54px;font-size:11px;letter-spacing:1.5px}
+.hero h1{font-size:clamp(23px,6.2vw,32px);letter-spacing:-.7px;line-height:1.5;margin:8px 0}
+.hero p{max-width:none;font-size:13px;line-height:1.8;margin-top:8px}
+.screen-nav{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;padding:5px;margin-bottom:20px}
+.screen-nav button{min-width:0;padding:12px 4px;font-size:13px;white-space:nowrap}
+.week-controls{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.week-controls strong{grid-column:1/-1;grid-row:1;min-width:0;font-size:14px;padding:8px 0;white-space:nowrap}
+.week-controls .secondary{padding:9px 2px;font-size:12px;min-width:0;white-space:nowrap}
+.week-controls .lucide{width:14px;height:14px}
+#week-prev{grid-column:1;grid-row:2}#week-today{grid-column:2;grid-row:2}#week-next{grid-column:3;grid-row:2}#week-all{grid-column:4;grid-row:2}
+.stats>div{padding:14px 12px}.stats span{white-space:nowrap;font-size:12px}
+.heading{flex-wrap:wrap}.heading .tag{white-space:nowrap}
+.form{padding:24px 18px}.hint{line-height:1.8}
+input,select{font-size:16px;max-width:100%}
+.manage-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+.manage-actions button{padding:10px 6px;font-size:13px}
+.complete-dialog{padding:24px 20px;width:calc(100% - 32px)}
+.complete-dialog h2{font-size:20px;line-height:1.6;word-break:normal}
+.dialog-actions{flex-wrap:wrap}.dialog-actions button{flex:1;padding:12px;white-space:nowrap}
+#list{scrollbar-gutter:auto}
+}
 </style><link rel="manifest" href="/manifest.webmanifest"><meta name="theme-color" content="#65558f"><meta name="apple-mobile-web-app-capable" content="yes"></head><body><main class="wrap"><header><div class="brand"><b aria-hidden="true"><svg class="lucide" aria-hidden="true" focusable="false"
   xmlns="http://www.w3.org/2000/svg"
   width="24"
@@ -120,7 +151,7 @@ header .settings-button{margin:0;flex-shrink:0;display:flex;align-items:center;g
   <path d="M22 4h-4" />
   <circle cx="4" cy="20" r="2" />
 </svg>
-<span class="eyebrow">MY STUDY NOTE</span><h1>課題を、ひとつずつ。</h1><p>締切を整理して、今日やることをクリアに。</p></div><div class="note" id="save-note" role="status"></div><nav id="screen-nav" class="screen-nav" aria-label="画面切り替え"><button type="button" id="show-list" aria-controls="list-screen" aria-pressed="true">課題一覧</button><button type="button" id="show-entry" aria-controls="entry-screen" aria-pressed="false">授業・課題を登録</button><button type="button" id="show-manage" aria-controls="manage-screen" aria-pressed="false">登録内容</button></nav><p id="status" role="status"></p><div id="list-screen"><div class="week-controls" aria-label="表示する週"><button type="button" class="secondary" id="week-prev"><svg class="lucide" aria-hidden="true" focusable="false"
+<span class="eyebrow">MY STUDY NOTE</span><h1><span class="phrase">課題を、</span><span class="phrase">ひとつずつ。</span></h1><p><span class="phrase">締切を整理して、</span><span class="phrase">今日やることをクリアに。</span></p></div><div class="note" id="save-note" role="status"></div><nav id="screen-nav" class="screen-nav" aria-label="画面切り替え"><button type="button" id="show-list" aria-controls="list-screen" aria-pressed="true">課題一覧</button><button type="button" id="show-entry" aria-controls="entry-screen" aria-pressed="false">課題登録</button><button type="button" id="show-manage" aria-controls="manage-screen" aria-pressed="false">登録内容</button></nav><p id="status" role="status"></p><div id="list-screen"><div class="week-controls" aria-label="表示する週"><button type="button" class="secondary" id="week-prev"><svg class="lucide" aria-hidden="true" focusable="false"
   xmlns="http://www.w3.org/2000/svg"
   width="24"
   height="24"
