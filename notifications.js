@@ -33,7 +33,7 @@ const jobs=[];
 for(const [id,t] of occurrences){
 const due=new Date(t.due).getTime();
 if(due>now+179*86400000)continue;
-for(const [offset,label] of [[86400000,'前日'],[3600000,'1時間前']]){
+for(const [offset,label] of [[86400000,'1日前'],[43200000,'12時間前'],[3600000,'1時間前']]){
 const fire=due-offset;
 if(fire<now-300000)continue;
 jobs.push({id:id+':'+offset,due,fire,title:('課題ノート · '+label).slice(0,150),body:(t.course+(t.title?'：'+t.title:'')+'\n締切 '+new Date(due).toLocaleString('ja-JP',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'})).slice(0,300)});
@@ -53,7 +53,7 @@ const sub=await registration.pushManager.getSubscription();
 if(!sub||Notification.permission!=='granted')throw Error('通知の許可がありません。「通知を停止」後に再度有効にしてください。');
 const jobs=reminders();config.revision=Math.max(Date.now(),(config.revision||0)+1);persist();
 await request('/sync',{subscription:sub.toJSON(),jobs,revision:config.revision});
-lastSync=Date.now();status('通知予定を保存しました。締切の前日・1時間前にお知らせします。');
+lastSync=Date.now();status('通知予定を保存しました。締切の1日前・12時間前・1時間前にお知らせします。');
 }catch(e){status('通知予定を更新できません：'+e.message+' 変更が反映されるまで、以前の通知予定が残る場合があります。');}
 finally{busy=false;if(queued){queued=false;queueSync();}}
 }
